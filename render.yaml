@@ -4,7 +4,7 @@ services:
     runtime: node
     buildCommand: npm install && npm --workspace shared run build && npm --workspace server run build
     startCommand: npm --workspace server run start
-    plan: starter
+    plan: free
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
@@ -12,13 +12,9 @@ services:
       - key: PORT
         value: "10000"
       - key: DATABASE_PATH
-        value: /var/data/watch-party.sqlite
+        value: ./data/watch-party.sqlite
       - key: CLIENT_ORIGIN
         sync: false
-    disk:
-      name: watch-party-data
-      mountPath: /var/data
-      sizeGB: 1
   - type: web
     name: frame-watch-party-client
     runtime: static

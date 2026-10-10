@@ -101,7 +101,7 @@ For a manual synchronization check, open the app in two or three browser windows
 
 ## Deployment (Render)
 
-`render.yaml` describes a persistent-disk Node web service and a static client site with a `/health` health check. Deploy the blueprint in Render, then set `CLIENT_ORIGIN` on the server to the deployed client origin and `VITE_SERVER_URL` on the static site to the deployed server URL (including `https://`). The static site must be rebuilt after setting its build-time `VITE_SERVER_URL`. Verify `/health`, room creation/joining, and cross-client synchronization before documenting a public URL. No public deployment URL is currently verified.
+`render.yaml` describes a free Node web service and a static client site with a `/health` health check. The backend stores SQLite data in its local `./data` directory, which is ephemeral on Render's free service; room history may be lost after a restart, redeploy, or spin-down. Deploy the blueprint in Render, then set `CLIENT_ORIGIN` on the server to the deployed client origin and `VITE_SERVER_URL` on the static site to the deployed server URL (including `https://`). The static site must be rebuilt after setting its build-time `VITE_SERVER_URL`. Verify `/health`, room creation/joining, and cross-client synchronization before documenting a public URL. No public deployment URL is currently verified.
 
 ## Trade-offs and limitations
 
