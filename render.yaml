@@ -2,13 +2,15 @@ services:
   - type: web
     name: frame-watch-party
     runtime: node
-    buildCommand: npm install --include=dev && npm --workspace shared run build && npm --workspace server run build
+    buildCommand: npm install --include=dev && npm rebuild better-sqlite3 --workspace server && npm --workspace shared run build && npm --workspace server run build
     startCommand: npm --workspace server run start
     plan: free
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
+      - key: NODE_VERSION
+        value: 22.22.0
       - key: PORT
         value: "10000"
       - key: DATABASE_PATH
