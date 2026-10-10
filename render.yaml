@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: frame-watch-party
+    runtime: node
+    buildCommand: npm install && npm --workspace shared run build && npm --workspace server run build
+    startCommand: npm --workspace server run start
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: DATABASE_PATH
+        value: /var/data/watch-party.sqlite
+      - key: CLIENT_ORIGIN
+        sync: false
+    disk:
+      name: watch-party-data
+      mountPath: /var/data
+      sizeGB: 1
+  - type: web
+    name: frame-watch-party-client
+    runtime: static
+    buildCommand: npm install && npm --workspace shared run build && npm --workspace client run build
+    staticPublishPath: ./client/dist
+    envVars:
+      - key: VITE_SERVER_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

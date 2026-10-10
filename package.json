@@ -1,0 +1,22 @@
+{
+  "name": "youtube-watch-party",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "build": "npm --workspace shared run build && npm --workspace server run build && npm --workspace client run build",
+    "format": "prettier --write \"**/*.{ts,tsx,css,md,json,yaml,yml,html}\"",
+    "test": "npm --workspace shared run build && npm --workspace server test",
+    "typecheck": "npm --workspace shared run build && npm --workspace server run typecheck && npm --workspace client run typecheck"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9",
+    "typescript": "^5.8.3"
+  }
+}
